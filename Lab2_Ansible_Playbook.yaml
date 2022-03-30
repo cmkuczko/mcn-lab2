@@ -9,10 +9,10 @@
     service: name=nginx state=started enabled=yes
 
   - name: Create webadmin user  
-      user:
-        name: "webadmin"
-        comment: "Web Admin User"  
-        groups: nginx
+    user:
+      name: "webadmin"
+      comment: "Web Admin User"  
+      groups: nginx
 
   - name: Create www directory
     file:
