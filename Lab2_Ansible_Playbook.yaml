@@ -10,7 +10,7 @@
 
   - name: Create webadmin user  
       user:
-        name: webadmin
+        name: "webadmin"
         comment: "Web Admin User"  
         groups: nginx
 
