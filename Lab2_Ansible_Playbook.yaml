@@ -26,7 +26,7 @@
 
       - name: Copy Web files from GitHub
         copy:
-          src: 'https://github.com/cbbics/explorecalifornia.git'
+          src: 'explorecalifornia'
           dest: '/var/www/explorecalifornia'
         become: yes
 
