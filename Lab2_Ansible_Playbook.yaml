@@ -13,7 +13,7 @@
           name: "webadmin"
           comment: "Web Admin User"  
           groups: nginx
-          become: yes
+        become: yes
 
       - name: Create www directory
         file:
