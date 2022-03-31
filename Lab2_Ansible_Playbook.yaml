@@ -22,11 +22,13 @@
           mode: '0775'
           owner: "webadmin"
           group: "webadmin"
+        become: yes
 
       - name: Copy Web files from GitHub
         copy:
           src: 'https://github.com/cbbics/explorecalifornia.git'
           dest: '/var/www/explorecalifornia'
+        become: yes
 
       - name: Start Nginx
         service: name=nginx state=started enabled=yes
