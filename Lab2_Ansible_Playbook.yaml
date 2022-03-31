@@ -4,7 +4,7 @@
     yum: name=epel-release state=present
 
   - name: Install nginx web server
-    yum: name=nginx state=present enabled=yes
+    yum: name=nginx state=installed
 
   - name: Start Nginx
     service: name=nginx state=started enabled=yes
