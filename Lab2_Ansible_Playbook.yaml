@@ -8,9 +8,6 @@
         yum: name=nginx state=installed update_cache=true
         become: yes
 
-      - name: Start Nginx
-        service: name=nginx state=started enabled=yes
-
       - name: Create webadmin user  
         user:
           name: "webadmin"
@@ -29,3 +26,6 @@
         copy:
           src: 'https://github.com/cbbics/explorecalifornia.git'
           dest: '/var/www/explorecalifornia'
+
+      - name: Start Nginx
+        service: name=nginx state=started enabled=yes
