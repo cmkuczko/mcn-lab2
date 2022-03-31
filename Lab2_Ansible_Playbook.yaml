@@ -1,10 +1,14 @@
 - hosts: webservers
   tasks:
       - name: Install EPEL release for nginx
-        yum: name=epel-release state=present
+        yum: name=epel-release state=present 
+        become: yes
+        become_user: su
 
       - name: Install nginx web server
         yum: name=nginx state=installed update_cache=true
+        become: yes
+        become_user: su
 
       - name: Start Nginx
         service: name=nginx state=started enabled=yes
