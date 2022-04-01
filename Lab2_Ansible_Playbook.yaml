@@ -1,35 +1,59 @@
 - hosts: webservers
+  become: yes
+  vars:
+    server_name: ck-ansibleclient
+    document_root: /var/www/html
+    app_root: explorecalifornia
   tasks:
       - name: Install EPEL release for nginx
         yum: name=epel-release state=present 
-        become: yes
 
       - name: Install nginx web server
         yum: name=nginx state=installed update_cache=true
-        become: yes
 
       - name: Create webadmin user  
         user:
           name: "webadmin"
           comment: "Web Admin User"  
           groups: nginx
-        become: yes
 
       - name: Create www directory
         file:
-          path: /var/www/explorecalifornia
+          path: /var/www/explorecalifornia.com
           state: directory
           mode: '0775'
           owner: "webadmin"
           group: "webadmin"
-        become: yes
 
       - name: Copy Web files from GitHub
         copy:
           src: '../explorecalifornia'
-          dest: '/var/www/explorecalifornia'
-        become: yes
+          dest: '/var/www/explorecalifornia.com'
 
-      - name: Start Nginx
-        service: name=nginx state=started enabled=yes
-        become: yes
+      - name: Apply Nginx template
+        template:
+          src: nginx.conf.j2
+          dest: /etc/nginx/sites-available/default
+        notify: Restart Nginx
+
+      - name: Enable new site
+        file:
+          src: /etc/nginx/sites-available/default
+          dest: /etc/nginx/sites-enabled/default
+          state: link
+        notify: Restart Nginx
+
+      - name: Allow all access to tcp port 80
+        ufw:
+          rule: allow
+          port: '80'
+          proto: tcp
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
+        # - name: Start Nginx
+        #   service: name=nginx state=started enabled=yes
