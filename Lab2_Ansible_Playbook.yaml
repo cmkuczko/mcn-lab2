@@ -1,9 +1,9 @@
 - hosts: webservers
   become: yes
   vars:
-    server_name: ck-ansibleclient
-    document_root: /var/www/html
-    app_root: explorecalifornia
+    server_name: www.explorecalifornia.com
+    document_root: /var/www
+    app_root: explorecalifornia.com
   tasks:
       - name: Install EPEL release for nginx
         yum: name=epel-release state=present 
