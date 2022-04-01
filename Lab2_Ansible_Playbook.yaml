@@ -43,8 +43,8 @@
 
       - name: Copy Web files from GitHub
         copy:
-          src: '../explorecalifornia'
-          dest: '/var/www/explorecalifornia.com'
+          src: '../explorecalifornia/'
+          dest: '/var/www/explorecalifornia.com/'
 
       - name: Apply Nginx template
         template:
