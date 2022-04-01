@@ -25,7 +25,7 @@
           owner: "webadmin"
           group: "webadmin"
 
-        - name: Create available directory
+      - name: Create available directory
         file:
           path: /etc/nginx/sites-available
           state: directory
@@ -33,7 +33,7 @@
           owner: "webadmin"
           group: "webadmin"
 
-        - name: Create enabled directory
+      - name: Create enabled directory
         file:
           path: /etc/nginx/sites-enabled
           state: directory
