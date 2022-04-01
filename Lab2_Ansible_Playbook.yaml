@@ -25,6 +25,22 @@
           owner: "webadmin"
           group: "webadmin"
 
+        - name: Create available directory
+        file:
+          path: /etc/nginx/sites-available
+          state: directory
+          mode: '0775'
+          owner: "webadmin"
+          group: "webadmin"
+
+        - name: Create enabled directory
+        file:
+          path: /etc/nginx/sites-enabled
+          state: directory
+          mode: '0775'
+          owner: "webadmin"
+          group: "webadmin"
+
       - name: Copy Web files from GitHub
         copy:
           src: '../explorecalifornia'
