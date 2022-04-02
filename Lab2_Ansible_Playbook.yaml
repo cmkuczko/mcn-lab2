@@ -23,6 +23,9 @@
 
       - name: Create www directory
         file:
+          path: /var/www
+          state: directory
+          mode: '0775'
           owner: "webadmin"
           group: "webadmin"
 
