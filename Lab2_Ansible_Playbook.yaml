@@ -12,7 +12,7 @@
       #   yum: name=nginx state=installed update_cache=true
 
       - name: Install apache webserver
-        yum: name=httpd state=started enabled=yes
+        yum: name=httpd state=started
 
       - name: Create webadmin user  
         user:
