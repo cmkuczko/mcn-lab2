@@ -48,7 +48,7 @@
 
       - name: Apply Nginx template
         template:
-          src: nginx.conf.j2
+          src: nginx.conf
           dest: /etc/nginx/sites-available/default
         notify: Restart Nginx
 
