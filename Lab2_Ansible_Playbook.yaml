@@ -5,17 +5,20 @@
     document_root: /var/www
     app_root: explorecalifornia.com
   tasks:
-      - name: Install EPEL release for nginx
-        yum: name=epel-release state=present 
+      # - name: Install EPEL release for nginx
+      #   yum: name=epel-release state=present 
 
-      - name: Install nginx web server
-        yum: name=nginx state=installed update_cache=true
+      # - name: Install nginx web server
+      #   yum: name=nginx state=installed update_cache=true
+
+      - name: Install apache webserver
+        yum: name=httpd state=started enabled=yes
 
       - name: Create webadmin user  
         user:
           name: "webadmin"
           comment: "Web Admin User"  
-          groups: nginx
+          groups: apache
 
       - name: Create www directory
         file:
@@ -25,39 +28,39 @@
           owner: "webadmin"
           group: "webadmin"
 
-      - name: Create available directory
-        file:
-          path: /etc/nginx/sites-available
-          state: directory
-          mode: '0775'
-          owner: "webadmin"
-          group: "webadmin"
+      # - name: Create available directory
+      #   file:
+      #     path: /etc/nginx/sites-available
+      #     state: directory
+      #     mode: '0775'
+      #     owner: "webadmin"
+      #     group: "webadmin"
 
-      - name: Create enabled directory
-        file:
-          path: /etc/nginx/sites-enabled
-          state: directory
-          mode: '0775'
-          owner: "webadmin"
-          group: "webadmin"
+      # - name: Create enabled directory
+      #   file:
+      #     path: /etc/nginx/sites-enabled
+      #     state: directory
+      #     mode: '0775'
+      #     owner: "webadmin"
+      #     group: "webadmin"
 
-      - name: Copy Web files from GitHub
+      - name: Copy Web files
         copy:
           src: '../explorecalifornia/'
           dest: '/var/www/explorecalifornia.com/'
 
-      - name: Apply Nginx template
-        template:
-          src: nginx.conf
-          dest: /etc/nginx/sites-available/default
-        notify: Restart Nginx
+      # - name: Apply Nginx template
+      #   template:
+      #     src: nginx.conf
+      #     dest: /etc/nginx/sites-available/default
+      #   notify: Restart Nginx
 
-      - name: Enable new site
-        file:
-          src: /etc/nginx/sites-available/default
-          dest: /etc/nginx/sites-enabled/default
-          state: link
-        notify: Restart Nginx
+      # - name: Enable new site
+      #   file:
+      #     src: /etc/nginx/sites-available/default
+      #     dest: /etc/nginx/sites-enabled/default
+      #     state: link
+      #   notify: Restart Nginx
 
       # - name: Allow all access to tcp port 80
       #   ufw:
@@ -65,11 +68,11 @@
       #     port: '80'
       #     proto: tcp
 
-  handlers:
-    - name: Restart Nginx
-      service:
-        name: nginx
-        state: restarted
+  # handlers:
+  #   - name: Restart Nginx
+  #     service:
+  #       name: nginx
+  #       state: restarted
 
         # - name: Start Nginx
         #   service: name=nginx state=started enabled=yes
