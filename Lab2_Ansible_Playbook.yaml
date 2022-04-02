@@ -22,6 +22,13 @@
           state: started  
           enabled: yes
 
+      - name: Disable SELinux  
+        selinux:
+          state: disabled
+      
+      - name: Reboot
+        command: /sbin/reboot
+
       - name: Create webadmin user  
         user:
           name: "webadmin"
