@@ -22,9 +22,9 @@
           state: started  
           enabled: yes
 
-      - name: Disable SELinux  
+      - name: Enable SELinux  
         selinux:
-          state: disabled
+          state: enabled
       
       - name: Reboot
         command: /sbin/reboot
