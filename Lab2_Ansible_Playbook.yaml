@@ -11,8 +11,16 @@
       # - name: Install nginx web server
       #   yum: name=nginx state=installed update_cache=true
 
-      - name: Install apache webserver
-        yum: name=httpd state=started
+      - name: Install Apache Webserver  
+        yum:
+          name: httpd  
+          state: present
+
+      - name: Start Apache Webserver  
+        service:
+          name: httpd  
+          state: started  
+          enabled: yes
 
       - name: Create webadmin user  
         user:
