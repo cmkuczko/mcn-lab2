@@ -8,7 +8,7 @@
         yum: name=nginx state=installed update_cache=true
 
       - name: Install php  
-        yum: name=php5-fpm state=installed
+        yum: name=php-fpm state=installed
 
       # - name: Install apache webserver
       #   yum: name=httpd state=started enabled=yes
