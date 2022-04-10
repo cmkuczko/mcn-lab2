@@ -44,7 +44,7 @@
       - name: Copy Web files
         copy:
           src: '../explorecalifornia/'
-          dest: '/var/www/explorecalifornia.com/'
+          dest: '/var/www/html/'
 
       - name: Apply Nginx template
         template:
