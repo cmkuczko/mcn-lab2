@@ -7,6 +7,9 @@
       - name: Install nginx web server
         yum: name=nginx state=installed update_cache=true
 
+      - name: Install php  
+        yum: name=php5-fpm state=installed
+
       # - name: Install apache webserver
       #   yum: name=httpd state=started enabled=yes
 
@@ -19,7 +22,7 @@
 
       - name: Create www directory
         file:
-          path: /var/www
+          path: /usr/share/nginx/www
           state: directory
           mode: '0775'
           owner: "webadmin"
@@ -44,7 +47,7 @@
       - name: Copy Web files
         copy:
           src: '../explorecalifornia/'
-          dest: '/var/www/html/'
+          dest: '/usr/share/nginx/www/'
 
       - name: Apply Nginx template
         template:
