@@ -1,0 +1,51 @@
+- hosts: loadbalancers
+  become: yes
+  tasks:
+      - name: Install EPEL release for nginx
+        yum: name=epel-release state=present 
+
+      - name: Install nginx web server
+        yum: name=nginx state=installed update_cache=true
+
+      - name: Create webadmin user  
+        user:
+          name: "webadmin"
+          comment: "Web Admin User"  
+          groups: nginx
+          groups: nginx
+
+      - name: Create available directory
+        file:
+          path: /etc/nginx/sites-available
+          state: directory
+          mode: '0775'
+          owner: "webadmin"
+          group: "webadmin"
+
+      - name: Create enabled directory
+        file:
+          path: /etc/nginx/sites-enabled
+          state: directory
+          mode: '0775'
+          owner: "webadmin"
+          group: "webadmin"
+
+      - name: Apply Nginx template
+        template:
+          src: nginx.lb.conf
+          dest: /etc/nginx/sites-available/default
+        notify: Restart Nginx
+
+      - name: Enable new site
+        file:
+          src: /etc/nginx/sites-available/default
+          dest: /etc/nginx/sites-enabled/default
+          state: link
+        notify: Restart Nginx
+
+  handlers:
+    - name: Restart Nginx
+      service:
+        name: nginx
+        state: restarted
+
