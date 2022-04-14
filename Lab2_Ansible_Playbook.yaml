@@ -10,8 +10,8 @@
       - name: Install php  
         yum: name=php-fpm state=installed
       
-      -name: Install 
-       yum: 
+      # -name: Install 
+      #  yum: 
 # sudo yum install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 # sudo yum-config-manager --enable remi-php74
 # sudo yum install php php-fpm
