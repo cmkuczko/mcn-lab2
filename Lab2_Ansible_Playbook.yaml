@@ -29,7 +29,6 @@
         file:
           path: /usr/share/nginx/www
           state: directory
-          mode: '0775'
           owner: "webadmin"
           group: "webadmin"
 
@@ -37,7 +36,6 @@
         file:
           path: /etc/nginx/sites-available
           state: directory
-          mode: '0775'
           owner: "webadmin"
           group: "webadmin"
 
@@ -45,14 +43,13 @@
         file:
           path: /etc/nginx/sites-enabled
           state: directory
-          mode: '0775'
           owner: "webadmin"
           group: "webadmin"
 
       - name: Copy Web files
         copy:
           src: '../explorecalifornia/'
-          dest: '/usr/share/nginx/www/'
+          dest: '/usr/share/nginx/html/'
 
       - name: Apply Nginx template
         template:
