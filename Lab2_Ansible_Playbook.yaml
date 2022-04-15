@@ -9,7 +9,7 @@
 
       - name: Install php  
         yum: name=php-fpm state=installed
-      
+
       # -name: Install 
       #  yum: 
 # sudo yum install http://rpms.remirepo.net/enterprise/remi-release-8.rpm
@@ -27,7 +27,7 @@
 
       - name: Create www directory
         file:
-          path: /var/www/html
+          path: /usr/share/nginx/www
           state: directory
           mode: '0775'
           owner: "webadmin"
@@ -52,7 +52,7 @@
       - name: Copy Web files
         copy:
           src: '../explorecalifornia/'
-          dest: '/var/www/html/'
+          dest: '/usr/share/nginx/www/'
 
       - name: Apply Nginx template
         template:
@@ -66,6 +66,12 @@
           dest: /etc/nginx/sites-enabled/default
           state: link
         notify: Restart Nginx
+      
+      - name: restart php-fpm
+        service: name=php-fpm state=restarted
+
+      - name: restart nginx
+        service: name=nginx state=restarted
 
   handlers:
     - name: Restart Nginx
